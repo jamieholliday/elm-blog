@@ -1,0 +1,29 @@
+{
+  "name": "elm-blog",
+  "version": "1.0.0",
+  "description": "Practice todo app using Elm",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jamieholliday/basic-elm-todo.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jamieholliday/basic-elm-todo/issues"
+  },
+  "homepage": "https://github.com/jamieholliday/basic-elm-todo#readme",
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp-elm": "^0.6.1",
+    "gulp-load-plugins": "^1.5.0",
+    "gulp-multi-process": "^1.2.0",
+    "gulp-notify": "^3.0.0",
+    "gulp-plumber": "^1.1.0",
+    "gulp-watch": "^4.3.11",
+    "live-server": "^1.2.0"
+  }
+}
