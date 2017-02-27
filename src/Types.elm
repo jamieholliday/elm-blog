@@ -1,6 +1,12 @@
 module Types exposing (..)
 
+import Http
 import Navigation
+
+
+type Msg
+    = UrlChange Navigation.Location
+    | NewContent (Result Http.Error String)
 
 
 type alias Model =
@@ -19,4 +25,5 @@ type alias Content =
     , contentType : ContentType
     , name : String
     , title : String
+    , markdown : Maybe String
     }

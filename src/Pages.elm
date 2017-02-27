@@ -3,10 +3,27 @@ module Pages exposing (..)
 import Types exposing (Content, ContentType(..))
 
 
-index : Content
-index =
+home : Content
+home =
     { slug = "/"
     , contentType = Page
-    , name = "index"
+    , name = "home"
     , title = "Jamie Holliday"
+    , markdown = Nothing
     }
+
+
+about =
+    { slug = "/about"
+    , contentType = Page
+    , name = "about"
+    , title = "About Me"
+    , markdown = Nothing
+    }
+
+
+pages : List Content
+pages =
+    [ home
+    , about
+    ]

@@ -1,30 +1,56 @@
 module App exposing (..)
 
-import Html exposing (..)
-import Html.Attributes exposing (..)
 import Navigation
 import Pages
-import Types exposing (Model)
+import Types exposing (Model, Msg(..), Content, ContentType(..))
+import View
+import FetchContent exposing (fetch)
 
 
 -- MODEL
 
 
-model : Navigation.Location -> ( Model, Cmd Msg )
-model location =
-    ( { history = [ location ]
-      , currentContent = Pages.index
-      }
-    , Cmd.none
-    )
+initialModel : Navigation.Location -> Model
+initialModel location =
+    { history = [ location ]
+    , currentContent = Pages.home
+    }
+
+
+init : Navigation.Location -> ( Model, Cmd Msg )
+init location =
+    (update (UrlChange location) (initialModel location))
+
+
+
+-- init location =
+--     ( { history = [ location ]
+--       , currentContent = Pages.home
+--       }
+--     , fetch Pages.home
+--     )
+-- HELPERS
+
+
+getPagesByPathname : String -> Content
+getPagesByPathname pathname =
+    let
+        page =
+            Pages.pages
+                |> List.filter (\item -> item.slug == pathname)
+                |> List.head
+    in
+        case page of
+            Just pageContent ->
+                pageContent
+
+            -- this should be a 404 page instead of home
+            Nothing ->
+                Pages.home
 
 
 
 -- UPDATE
-
-
-type Msg
-    = UrlChange Navigation.Location
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -32,18 +58,32 @@ update msg model =
     case msg of
         UrlChange location ->
             ( { model | history = location :: model.history }
-            , Cmd.none
+            , fetch (getPagesByPathname location.pathname)
             )
 
+        NewContent (Ok content) ->
+            let
+                currentContent =
+                    model.currentContent
 
+                newCurrent =
+                    { currentContent | markdown = Just content }
+            in
+                ( { model | currentContent = newCurrent }
+                , Cmd.none
+                )
 
--- VIEW
+        NewContent (Err errorMessage) ->
+            let
+                currentContent =
+                    model.currentContent
 
-
-view : Model -> Html Msg
-view model =
-    div [ class "main-container" ]
-        [ text "test" ]
+                newCurrent =
+                    { currentContent | markdown = Just (toString errorMessage) }
+            in
+                ( { model | currentContent = newCurrent }
+                , Cmd.none
+                )
 
 
 
@@ -62,8 +102,8 @@ subscriptions model =
 main : Program Never Model Msg
 main =
     Navigation.program UrlChange
-        { init = model
-        , view = view
+        { init = init
+        , view = View.render
         , update = update
         , subscriptions = subscriptions
         }
