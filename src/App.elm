@@ -23,12 +23,6 @@ init location =
 
 
 
--- init location =
---     ( { history = [ location ]
---       , currentContent = Pages.home
---       }
---     , fetch Pages.home
---     )
 -- HELPERS
 
 
