@@ -4,7 +4,7 @@
   "description": "Practice todo app using Elm",
   "main": "app.js",
   "scripts": {
-    "watch": "elm-live src/*.elm --open --pushstate --output build/App.js --debug",
+    "dev": "elm-live src/*.elm --open --pushstate --output build/App.js --debug",
     "test": "elm-test"
   },
   "repository": {

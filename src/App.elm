@@ -26,21 +26,11 @@ init location =
 -- HELPERS
 
 
-getPagesByPathname : String -> Content
+getPagesByPathname : String -> Maybe Content
 getPagesByPathname pathname =
-    let
-        page =
-            Pages.pages
-                |> List.filter (\item -> item.slug == pathname)
-                |> List.head
-    in
-        case page of
-            Just pageContent ->
-                pageContent
-
-            -- this should be a 404 page instead of home
-            Nothing ->
-                Pages.home
+    Pages.pages
+        |> List.filter (\item -> item.slug == pathname)
+        |> List.head
 
 
 
@@ -50,10 +40,22 @@ getPagesByPathname pathname =
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
+        LinkClicked slug ->
+            ( model, Navigation.newUrl slug )
+
         UrlChange location ->
-            ( { model | history = location :: model.history }
-            , fetch (getPagesByPathname location.pathname)
-            )
+            let
+                pageContent =
+                    getPagesByPathname location.pathname
+            in
+                case pageContent of
+                    Nothing ->
+                        ( model, fetch (Pages.notFound404) )
+
+                    Just content ->
+                        ( { model | history = location :: model.history }
+                        , fetch (content)
+                        )
 
         NewContent (Ok content) ->
             let
@@ -68,16 +70,9 @@ update msg model =
                 )
 
         NewContent (Err errorMessage) ->
-            let
-                currentContent =
-                    model.currentContent
-
-                newCurrent =
-                    { currentContent | markdown = Just (toString errorMessage) }
-            in
-                ( { model | currentContent = newCurrent }
-                , Cmd.none
-                )
+            ( { model | currentContent = Pages.notFoundContent }
+            , Cmd.none
+            )
 
 
 

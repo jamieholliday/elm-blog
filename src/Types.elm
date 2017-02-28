@@ -7,6 +7,7 @@ import Navigation
 type Msg
     = UrlChange Navigation.Location
     | NewContent (Result Http.Error String)
+    | LinkClicked String
 
 
 type alias Model =

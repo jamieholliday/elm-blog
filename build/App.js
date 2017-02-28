@@ -12706,6 +12706,121 @@ var _elm_lang$html$Html_Attributes$classList = function (list) {
 };
 var _elm_lang$html$Html_Attributes$style = _elm_lang$virtual_dom$VirtualDom$style;
 
+var _elm_lang$html$Html_Events$keyCode = A2(_elm_lang$core$Json_Decode$field, 'keyCode', _elm_lang$core$Json_Decode$int);
+var _elm_lang$html$Html_Events$targetChecked = A2(
+	_elm_lang$core$Json_Decode$at,
+	{
+		ctor: '::',
+		_0: 'target',
+		_1: {
+			ctor: '::',
+			_0: 'checked',
+			_1: {ctor: '[]'}
+		}
+	},
+	_elm_lang$core$Json_Decode$bool);
+var _elm_lang$html$Html_Events$targetValue = A2(
+	_elm_lang$core$Json_Decode$at,
+	{
+		ctor: '::',
+		_0: 'target',
+		_1: {
+			ctor: '::',
+			_0: 'value',
+			_1: {ctor: '[]'}
+		}
+	},
+	_elm_lang$core$Json_Decode$string);
+var _elm_lang$html$Html_Events$defaultOptions = _elm_lang$virtual_dom$VirtualDom$defaultOptions;
+var _elm_lang$html$Html_Events$onWithOptions = _elm_lang$virtual_dom$VirtualDom$onWithOptions;
+var _elm_lang$html$Html_Events$on = _elm_lang$virtual_dom$VirtualDom$on;
+var _elm_lang$html$Html_Events$onFocus = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'focus',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onBlur = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'blur',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onSubmitOptions = _elm_lang$core$Native_Utils.update(
+	_elm_lang$html$Html_Events$defaultOptions,
+	{preventDefault: true});
+var _elm_lang$html$Html_Events$onSubmit = function (msg) {
+	return A3(
+		_elm_lang$html$Html_Events$onWithOptions,
+		'submit',
+		_elm_lang$html$Html_Events$onSubmitOptions,
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onCheck = function (tagger) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'change',
+		A2(_elm_lang$core$Json_Decode$map, tagger, _elm_lang$html$Html_Events$targetChecked));
+};
+var _elm_lang$html$Html_Events$onInput = function (tagger) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'input',
+		A2(_elm_lang$core$Json_Decode$map, tagger, _elm_lang$html$Html_Events$targetValue));
+};
+var _elm_lang$html$Html_Events$onMouseOut = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'mouseout',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onMouseOver = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'mouseover',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onMouseLeave = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'mouseleave',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onMouseEnter = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'mouseenter',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onMouseUp = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'mouseup',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onMouseDown = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'mousedown',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onDoubleClick = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'dblclick',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onClick = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'click',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$Options = F2(
+	function (a, b) {
+		return {stopPropagation: a, preventDefault: b};
+	});
+
 var _elm_lang$http$Native_Http = function() {
 
 
@@ -13616,6 +13731,9 @@ var _user$project$Types$Content = F5(
 	function (a, b, c, d, e) {
 		return {slug: a, contentType: b, name: c, title: d, markdown: e};
 	});
+var _user$project$Types$LinkClicked = function (a) {
+	return {ctor: 'LinkClicked', _0: a};
+};
 var _user$project$Types$NewContent = function (a) {
 	return {ctor: 'NewContent', _0: a};
 };
@@ -13625,6 +13743,14 @@ var _user$project$Types$UrlChange = function (a) {
 var _user$project$Types$Post = {ctor: 'Post'};
 var _user$project$Types$Page = {ctor: 'Page'};
 
+var _user$project$Pages$notFoundContent = {
+	slug: '/404',
+	contentType: _user$project$Types$Page,
+	name: '404',
+	title: 'Not Found',
+	markdown: _elm_lang$core$Maybe$Just('# couldn\'t load content')
+};
+var _user$project$Pages$notFound404 = {slug: '/404', contentType: _user$project$Types$Page, name: '404', title: 'Not Found', markdown: _elm_lang$core$Maybe$Nothing};
 var _user$project$Pages$about = {slug: '/about', contentType: _user$project$Types$Page, name: 'about', title: 'About Me', markdown: _elm_lang$core$Maybe$Nothing};
 var _user$project$Pages$home = {slug: '/', contentType: _user$project$Types$Page, name: 'home', title: 'Jamie Holliday', markdown: _elm_lang$core$Maybe$Nothing};
 var _user$project$Pages$pages = {
@@ -13633,11 +13759,15 @@ var _user$project$Pages$pages = {
 	_1: {
 		ctor: '::',
 		_0: _user$project$Pages$about,
-		_1: {ctor: '[]'}
+		_1: {
+			ctor: '::',
+			_0: _user$project$Pages$notFound404,
+			_1: {ctor: '[]'}
+		}
 	}
 };
 
-var _user$project$View$contentView = function (content) {
+var _user$project$View$content = function (content) {
 	var _p0 = content;
 	if (_p0.ctor === 'Just') {
 		return A2(
@@ -13663,6 +13793,77 @@ var _user$project$View$contentView = function (content) {
 			});
 	}
 };
+var _user$project$View$body = function (model) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$class('content'),
+			_1: {ctor: '[]'}
+		},
+		{
+			ctor: '::',
+			_0: _user$project$View$content(model.currentContent.markdown),
+			_1: {ctor: '[]'}
+		});
+};
+var _user$project$View$navigationOnClick = function (msg) {
+	return A3(
+		_elm_lang$html$Html_Events$onWithOptions,
+		'click',
+		{stopPropagation: false, preventDefault: true},
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _user$project$View$navigationLink = F2(
+	function (name, _p1) {
+		var _p2 = _p1;
+		var _p3 = _p2.slug;
+		return A2(
+			_elm_lang$html$Html$a,
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$href(_p3),
+				_1: {
+					ctor: '::',
+					_0: _user$project$View$navigationOnClick(
+						_user$project$Types$LinkClicked(_p3)),
+					_1: {ctor: '[]'}
+				}
+			},
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html$text(name),
+				_1: {ctor: '[]'}
+			});
+	});
+var _user$project$View$navigation = function (model) {
+	return A2(
+		_elm_lang$html$Html$nav,
+		{ctor: '[]'},
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$li,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: A2(_user$project$View$navigationLink, 'Home', _user$project$Pages$home),
+					_1: {ctor: '[]'}
+				}),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$li,
+					{ctor: '[]'},
+					{
+						ctor: '::',
+						_0: A2(_user$project$View$navigationLink, 'About', _user$project$Pages$about),
+						_1: {ctor: '[]'}
+					}),
+				_1: {ctor: '[]'}
+			}
+		});
+};
 var _user$project$View$render = function (model) {
 	return A2(
 		_elm_lang$html$Html$div,
@@ -13673,8 +13874,12 @@ var _user$project$View$render = function (model) {
 		},
 		{
 			ctor: '::',
-			_0: _user$project$View$contentView(model.currentContent.markdown),
-			_1: {ctor: '[]'}
+			_0: _user$project$View$navigation(model),
+			_1: {
+				ctor: '::',
+				_0: _user$project$View$body(model),
+				_1: {ctor: '[]'}
+			}
 		});
 };
 
@@ -13711,66 +13916,69 @@ var _user$project$App$subscriptions = function (model) {
 	return _elm_lang$core$Platform_Sub$none;
 };
 var _user$project$App$getPagesByPathname = function (pathname) {
-	var page = _elm_lang$core$List$head(
+	return _elm_lang$core$List$head(
 		A2(
 			_elm_lang$core$List$filter,
 			function (item) {
 				return _elm_lang$core$Native_Utils.eq(item.slug, pathname);
 			},
 			_user$project$Pages$pages));
-	var _p0 = page;
-	if (_p0.ctor === 'Just') {
-		return _p0._0;
-	} else {
-		return _user$project$Pages$home;
-	}
 };
 var _user$project$App$update = F2(
 	function (msg, model) {
-		var _p1 = msg;
-		if (_p1.ctor === 'UrlChange') {
-			var _p2 = _p1._0;
-			return {
-				ctor: '_Tuple2',
-				_0: _elm_lang$core$Native_Utils.update(
-					model,
-					{
-						history: {ctor: '::', _0: _p2, _1: model.history}
-					}),
-				_1: _user$project$FetchContent$fetch(
-					_user$project$App$getPagesByPathname(_p2.pathname))
-			};
-		} else {
-			if (_p1._0.ctor === 'Ok') {
-				var currentContent = model.currentContent;
-				var newCurrent = _elm_lang$core$Native_Utils.update(
-					currentContent,
-					{
-						markdown: _elm_lang$core$Maybe$Just(_p1._0._0)
-					});
+		var _p0 = msg;
+		switch (_p0.ctor) {
+			case 'LinkClicked':
 				return {
 					ctor: '_Tuple2',
-					_0: _elm_lang$core$Native_Utils.update(
-						model,
-						{currentContent: newCurrent}),
-					_1: _elm_lang$core$Platform_Cmd$none
+					_0: model,
+					_1: _elm_lang$navigation$Navigation$newUrl(_p0._0)
 				};
-			} else {
-				var currentContent = model.currentContent;
-				var newCurrent = _elm_lang$core$Native_Utils.update(
-					currentContent,
-					{
-						markdown: _elm_lang$core$Maybe$Just(
-							_elm_lang$core$Basics$toString(_p1._0._0))
-					});
-				return {
-					ctor: '_Tuple2',
-					_0: _elm_lang$core$Native_Utils.update(
-						model,
-						{currentContent: newCurrent}),
-					_1: _elm_lang$core$Platform_Cmd$none
-				};
-			}
+			case 'UrlChange':
+				var _p2 = _p0._0;
+				var pageContent = _user$project$App$getPagesByPathname(_p2.pathname);
+				var _p1 = pageContent;
+				if (_p1.ctor === 'Nothing') {
+					return {
+						ctor: '_Tuple2',
+						_0: model,
+						_1: _user$project$FetchContent$fetch(_user$project$Pages$notFound404)
+					};
+				} else {
+					return {
+						ctor: '_Tuple2',
+						_0: _elm_lang$core$Native_Utils.update(
+							model,
+							{
+								history: {ctor: '::', _0: _p2, _1: model.history}
+							}),
+						_1: _user$project$FetchContent$fetch(_p1._0)
+					};
+				}
+			default:
+				if (_p0._0.ctor === 'Ok') {
+					var currentContent = model.currentContent;
+					var newCurrent = _elm_lang$core$Native_Utils.update(
+						currentContent,
+						{
+							markdown: _elm_lang$core$Maybe$Just(_p0._0._0)
+						});
+					return {
+						ctor: '_Tuple2',
+						_0: _elm_lang$core$Native_Utils.update(
+							model,
+							{currentContent: newCurrent}),
+						_1: _elm_lang$core$Platform_Cmd$none
+					};
+				} else {
+					return {
+						ctor: '_Tuple2',
+						_0: _elm_lang$core$Native_Utils.update(
+							model,
+							{currentContent: _user$project$Pages$notFoundContent}),
+						_1: _elm_lang$core$Platform_Cmd$none
+					};
+				}
 		}
 	});
 var _user$project$App$initialModel = function (location) {
@@ -13797,7 +14005,11 @@ var _user$project$App$main = A2(
 var Elm = {};
 Elm['App'] = Elm['App'] || {};
 if (typeof _user$project$App$main !== 'undefined') {
-    _user$project$App$main(Elm['App'], 'App', {"types":{"unions":{"Dict.LeafColor":{"args":[],"tags":{"LBBlack":[],"LBlack":[]}},"Dict.Dict":{"args":["k","v"],"tags":{"RBNode_elm_builtin":["Dict.NColor","k","v","Dict.Dict k v","Dict.Dict k v"],"RBEmpty_elm_builtin":["Dict.LeafColor"]}},"Types.Msg":{"args":[],"tags":{"UrlChange":["Navigation.Location"],"NewContent":["Result.Result Http.Error String"]}},"Dict.NColor":{"args":[],"tags":{"BBlack":[],"Red":[],"NBlack":[],"Black":[]}},"Http.Error":{"args":[],"tags":{"BadUrl":["String"],"NetworkError":[],"Timeout":[],"BadStatus":["Http.Response String"],"BadPayload":["String","Http.Response String"]}},"Result.Result":{"args":["error","value"],"tags":{"Ok":["value"],"Err":["error"]}}},"aliases":{"Http.Response":{"args":["body"],"type":"{ url : String , status : { code : Int, message : String } , headers : Dict.Dict String String , body : body }"},"Navigation.Location":{"args":[],"type":"{ href : String , host : String , hostname : String , protocol : String , origin : String , port_ : String , pathname : String , search : String , hash : String , username : String , password : String }"}},"message":"Types.Msg"},"versions":{"elm":"0.18.0"}});
+    _user$project$App$main(Elm['App'], 'App', {"types":{"unions":{"Dict.LeafColor":{"args":[],"tags":{"LBBlack":[],"LBlack":[]}},"Dict.Dict":{"args":["k","v"],"tags":{"RBNode_elm_builtin":["Dict.NColor","k","v","Dict.Dict k v","Dict.Dict k v"],"RBEmpty_elm_builtin":["Dict.LeafColor"]}},"Types.Msg":{"args":[],"tags":{"LinkClicked":["String"],"UrlChange":["Navigation.Location"],"NewContent":["Result.Result Http.Error String"]}},"Dict.NColor":{"args":[],"tags":{"BBlack":[],"Red":[],"NBlack":[],"Black":[]}},"Http.Error":{"args":[],"tags":{"BadUrl":["String"],"NetworkError":[],"Timeout":[],"BadStatus":["Http.Response String"],"BadPayload":["String","Http.Response String"]}},"Result.Result":{"args":["error","value"],"tags":{"Ok":["value"],"Err":["error"]}}},"aliases":{"Http.Response":{"args":["body"],"type":"{ url : String , status : { code : Int, message : String } , headers : Dict.Dict String String , body : body }"},"Navigation.Location":{"args":[],"type":"{ href : String , host : String , hostname : String , protocol : String , origin : String , port_ : String , pathname : String , search : String , hash : String , username : String , password : String }"}},"message":"Types.Msg"},"versions":{"elm":"0.18.0"}});
+}
+Elm['FetchContent'] = Elm['FetchContent'] || {};
+if (typeof _user$project$FetchContent$main !== 'undefined') {
+    _user$project$FetchContent$main(Elm['FetchContent'], 'FetchContent', {"types":null,"versions":{"elm":"0.18.0"}});
 }
 Elm['Pages'] = Elm['Pages'] || {};
 if (typeof _user$project$Pages$main !== 'undefined') {
@@ -13806,6 +14018,10 @@ if (typeof _user$project$Pages$main !== 'undefined') {
 Elm['Types'] = Elm['Types'] || {};
 if (typeof _user$project$Types$main !== 'undefined') {
     _user$project$Types$main(Elm['Types'], 'Types', {"types":null,"versions":{"elm":"0.18.0"}});
+}
+Elm['View'] = Elm['View'] || {};
+if (typeof _user$project$View$main !== 'undefined') {
+    _user$project$View$main(Elm['View'], 'View', {"types":null,"versions":{"elm":"0.18.0"}});
 }
 
 if (typeof define === "function" && define['amd'])

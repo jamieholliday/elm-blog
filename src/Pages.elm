@@ -13,6 +13,7 @@ home =
     }
 
 
+about : Content
 about =
     { slug = "/about"
     , contentType = Page
@@ -22,8 +23,29 @@ about =
     }
 
 
+notFound404 : Content
+notFound404 =
+    { slug = "/404"
+    , contentType = Page
+    , name = "404"
+    , title = "Not Found"
+    , markdown = Nothing
+    }
+
+
+notFoundContent : Content
+notFoundContent =
+    { slug = "/404"
+    , contentType = Page
+    , name = "404"
+    , title = "Not Found"
+    , markdown = Just "# couldn't load content"
+    }
+
+
 pages : List Content
 pages =
     [ home
     , about
+    , notFound404
     ]
