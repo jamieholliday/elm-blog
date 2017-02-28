@@ -13799,6 +13799,14 @@ Elm['App'] = Elm['App'] || {};
 if (typeof _user$project$App$main !== 'undefined') {
     _user$project$App$main(Elm['App'], 'App', {"types":{"unions":{"Dict.LeafColor":{"args":[],"tags":{"LBBlack":[],"LBlack":[]}},"Dict.Dict":{"args":["k","v"],"tags":{"RBNode_elm_builtin":["Dict.NColor","k","v","Dict.Dict k v","Dict.Dict k v"],"RBEmpty_elm_builtin":["Dict.LeafColor"]}},"Types.Msg":{"args":[],"tags":{"UrlChange":["Navigation.Location"],"NewContent":["Result.Result Http.Error String"]}},"Dict.NColor":{"args":[],"tags":{"BBlack":[],"Red":[],"NBlack":[],"Black":[]}},"Http.Error":{"args":[],"tags":{"BadUrl":["String"],"NetworkError":[],"Timeout":[],"BadStatus":["Http.Response String"],"BadPayload":["String","Http.Response String"]}},"Result.Result":{"args":["error","value"],"tags":{"Ok":["value"],"Err":["error"]}}},"aliases":{"Http.Response":{"args":["body"],"type":"{ url : String , status : { code : Int, message : String } , headers : Dict.Dict String String , body : body }"},"Navigation.Location":{"args":[],"type":"{ href : String , host : String , hostname : String , protocol : String , origin : String , port_ : String , pathname : String , search : String , hash : String , username : String , password : String }"}},"message":"Types.Msg"},"versions":{"elm":"0.18.0"}});
 }
+Elm['Pages'] = Elm['Pages'] || {};
+if (typeof _user$project$Pages$main !== 'undefined') {
+    _user$project$Pages$main(Elm['Pages'], 'Pages', {"types":null,"versions":{"elm":"0.18.0"}});
+}
+Elm['Types'] = Elm['Types'] || {};
+if (typeof _user$project$Types$main !== 'undefined') {
+    _user$project$Types$main(Elm['Types'], 'Types', {"types":null,"versions":{"elm":"0.18.0"}});
+}
 
 if (typeof define === "function" && define['amd'])
 {
