@@ -11,6 +11,7 @@ import Json.Decode
 
 navigationOnClick : Msg -> Attribute Msg
 navigationOnClick msg =
+    -- I'm not 100% sure what this does.
     Html.Events.onWithOptions "click"
         { stopPropagation = False
         , preventDefault = True
