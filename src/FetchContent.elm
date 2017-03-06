@@ -12,18 +12,4 @@ fetch content =
 
 getUrl : Content -> String
 getUrl content =
-    let
-        loc =
-            directoryForContentType content.contentType
-    in
-        "/content/" ++ loc ++ "/" ++ content.name ++ ".md"
-
-
-directoryForContentType : ContentType -> String
-directoryForContentType contentType =
-    case contentType of
-        Page ->
-            "pages"
-
-        Post ->
-            "posts"
+    "/content/posts/" ++ content.name ++ ".md"

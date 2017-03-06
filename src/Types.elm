@@ -2,6 +2,7 @@ module Types exposing (..)
 
 import Http
 import Navigation
+import Html exposing (Html)
 
 
 type Msg
@@ -26,5 +27,6 @@ type alias Content =
     , contentType : ContentType
     , name : String
     , title : String
+    , view : Maybe (Html Msg)
     , markdown : Maybe String
     }

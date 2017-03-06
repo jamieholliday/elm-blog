@@ -13727,9 +13727,9 @@ var _user$project$Types$Model = F2(
 	function (a, b) {
 		return {history: a, currentContent: b};
 	});
-var _user$project$Types$Content = F5(
-	function (a, b, c, d, e) {
-		return {slug: a, contentType: b, name: c, title: d, markdown: e};
+var _user$project$Types$Content = F6(
+	function (a, b, c, d, e, f) {
+		return {slug: a, contentType: b, name: c, title: d, view: e, markdown: f};
 	});
 var _user$project$Types$LinkClicked = function (a) {
 	return {ctor: 'LinkClicked', _0: a};
@@ -13743,16 +13743,252 @@ var _user$project$Types$UrlChange = function (a) {
 var _user$project$Types$Post = {ctor: 'Post'};
 var _user$project$Types$Page = {ctor: 'Page'};
 
+var _user$project$Posts$test1 = {slug: '/test1', contentType: _user$project$Types$Post, name: 'test1', title: 'Test1 title', view: _elm_lang$core$Maybe$Nothing, markdown: _elm_lang$core$Maybe$Nothing};
+var _user$project$Posts$posts = {
+	ctor: '::',
+	_0: _user$project$Posts$test1,
+	_1: {ctor: '[]'}
+};
+
+var _user$project$ViewHelper$navigationOnClick = function (msg) {
+	return A3(
+		_elm_lang$html$Html_Events$onWithOptions,
+		'click',
+		{stopPropagation: false, preventDefault: true},
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _user$project$ViewHelper$pageLink = F2(
+	function (name, _p0) {
+		var _p1 = _p0;
+		var _p2 = _p1.slug;
+		return A2(
+			_elm_lang$html$Html$a,
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$href(_p2),
+				_1: {
+					ctor: '::',
+					_0: _user$project$ViewHelper$navigationOnClick(
+						_user$project$Types$LinkClicked(_p2)),
+					_1: {ctor: '[]'}
+				}
+			},
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html$text(name),
+				_1: {ctor: '[]'}
+			});
+	});
+
+var _user$project$PageViews$notFound404ContentView = A2(
+	_elm_lang$html$Html$div,
+	{
+		ctor: '::',
+		_0: _elm_lang$html$Html_Attributes$class('404'),
+		_1: {ctor: '[]'}
+	},
+	{
+		ctor: '::',
+		_0: A2(
+			_elm_lang$html$Html$h1,
+			{ctor: '[]'},
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html$text('static Not found content heading'),
+				_1: {ctor: '[]'}
+			}),
+		_1: {
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$p,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html$text('static Not found content content'),
+					_1: {ctor: '[]'}
+				}),
+			_1: {ctor: '[]'}
+		}
+	});
+var _user$project$PageViews$notFound404View = A2(
+	_elm_lang$html$Html$div,
+	{
+		ctor: '::',
+		_0: _elm_lang$html$Html_Attributes$class('404'),
+		_1: {ctor: '[]'}
+	},
+	{
+		ctor: '::',
+		_0: A2(
+			_elm_lang$html$Html$h1,
+			{ctor: '[]'},
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html$text('This is the static not found 404 heading'),
+				_1: {ctor: '[]'}
+			}),
+		_1: {
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$p,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html$text('This is the static not found 404 content'),
+					_1: {ctor: '[]'}
+				}),
+			_1: {ctor: '[]'}
+		}
+	});
+var _user$project$PageViews$singleBlogPostView = function (post) {
+	return A2(
+		_elm_lang$html$Html$li,
+		{ctor: '[]'},
+		{
+			ctor: '::',
+			_0: A2(_user$project$ViewHelper$pageLink, post.title, post),
+			_1: {ctor: '[]'}
+		});
+};
+var _user$project$PageViews$blogPostsView = A2(_elm_lang$core$List$map, _user$project$PageViews$singleBlogPostView, _user$project$Posts$posts);
+var _user$project$PageViews$blogView = A2(
+	_elm_lang$html$Html$div,
+	{
+		ctor: '::',
+		_0: _elm_lang$html$Html_Attributes$class('blog'),
+		_1: {ctor: '[]'}
+	},
+	{
+		ctor: '::',
+		_0: A2(
+			_elm_lang$html$Html$h1,
+			{ctor: '[]'},
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html$text('This is the static blog heading'),
+				_1: {ctor: '[]'}
+			}),
+		_1: {
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$p,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html$text('This is the static blog content'),
+					_1: {ctor: '[]'}
+				}),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$ul,
+					{ctor: '[]'},
+					_user$project$PageViews$blogPostsView),
+				_1: {ctor: '[]'}
+			}
+		}
+	});
+var _user$project$PageViews$aboutView = A2(
+	_elm_lang$html$Html$div,
+	{
+		ctor: '::',
+		_0: _elm_lang$html$Html_Attributes$class('about'),
+		_1: {ctor: '[]'}
+	},
+	{
+		ctor: '::',
+		_0: A2(
+			_elm_lang$html$Html$h1,
+			{ctor: '[]'},
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html$text('This is the staticabout heading'),
+				_1: {ctor: '[]'}
+			}),
+		_1: {
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$p,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html$text('This is the static about content'),
+					_1: {ctor: '[]'}
+				}),
+			_1: {ctor: '[]'}
+		}
+	});
+var _user$project$PageViews$homeView = A2(
+	_elm_lang$html$Html$div,
+	{
+		ctor: '::',
+		_0: _elm_lang$html$Html_Attributes$class('home'),
+		_1: {ctor: '[]'}
+	},
+	{
+		ctor: '::',
+		_0: A2(
+			_elm_lang$html$Html$h1,
+			{ctor: '[]'},
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html$text('This is the static homepage heading'),
+				_1: {ctor: '[]'}
+			}),
+		_1: {
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$p,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html$text('This is the static homepage content'),
+					_1: {ctor: '[]'}
+				}),
+			_1: {ctor: '[]'}
+		}
+	});
+
 var _user$project$Pages$notFoundContent = {
 	slug: '/404',
 	contentType: _user$project$Types$Page,
 	name: '404',
 	title: 'Not Found',
-	markdown: _elm_lang$core$Maybe$Just('# couldn\'t load content')
+	view: _elm_lang$core$Maybe$Just(_user$project$PageViews$notFound404ContentView),
+	markdown: _elm_lang$core$Maybe$Nothing
 };
-var _user$project$Pages$notFound404 = {slug: '/404', contentType: _user$project$Types$Page, name: '404', title: 'Not Found', markdown: _elm_lang$core$Maybe$Nothing};
-var _user$project$Pages$about = {slug: '/about', contentType: _user$project$Types$Page, name: 'about', title: 'About Me', markdown: _elm_lang$core$Maybe$Nothing};
-var _user$project$Pages$home = {slug: '/', contentType: _user$project$Types$Page, name: 'home', title: 'Jamie Holliday', markdown: _elm_lang$core$Maybe$Nothing};
+var _user$project$Pages$notFound404 = {
+	slug: '/404',
+	contentType: _user$project$Types$Page,
+	name: '404',
+	title: 'Not Found',
+	view: _elm_lang$core$Maybe$Just(_user$project$PageViews$notFound404View),
+	markdown: _elm_lang$core$Maybe$Nothing
+};
+var _user$project$Pages$blog = {
+	slug: '/blog',
+	contentType: _user$project$Types$Page,
+	name: 'blog',
+	title: 'Blog',
+	view: _elm_lang$core$Maybe$Just(_user$project$PageViews$blogView),
+	markdown: _elm_lang$core$Maybe$Nothing
+};
+var _user$project$Pages$about = {
+	slug: '/about',
+	contentType: _user$project$Types$Page,
+	name: 'about',
+	title: 'About Me',
+	view: _elm_lang$core$Maybe$Just(_user$project$PageViews$aboutView),
+	markdown: _elm_lang$core$Maybe$Nothing
+};
+var _user$project$Pages$home = {
+	slug: '/',
+	contentType: _user$project$Types$Page,
+	name: 'home',
+	title: 'Jamie Holliday',
+	view: _elm_lang$core$Maybe$Just(_user$project$PageViews$homeView),
+	markdown: _elm_lang$core$Maybe$Nothing
+};
 var _user$project$Pages$pages = {
 	ctor: '::',
 	_0: _user$project$Pages$home,
@@ -13762,13 +13998,17 @@ var _user$project$Pages$pages = {
 		_1: {
 			ctor: '::',
 			_0: _user$project$Pages$notFound404,
-			_1: {ctor: '[]'}
+			_1: {
+				ctor: '::',
+				_0: _user$project$Pages$blog,
+				_1: {ctor: '[]'}
+			}
 		}
 	}
 };
 
-var _user$project$View$content = function (content) {
-	var _p0 = content;
+var _user$project$View$markdownContent = function (markdown) {
+	var _p0 = markdown;
 	if (_p0.ctor === 'Just') {
 		return A2(
 			_evancz$elm_markdown$Markdown$toHtml,
@@ -13793,6 +14033,32 @@ var _user$project$View$content = function (content) {
 			});
 	}
 };
+var _user$project$View$staticContent = function (html) {
+	var _p1 = html;
+	if (_p1.ctor === 'Just') {
+		return A2(
+			_elm_lang$html$Html$div,
+			{ctor: '[]'},
+			{
+				ctor: '::',
+				_0: _p1._0,
+				_1: {ctor: '[]'}
+			});
+	} else {
+		return A2(
+			_elm_lang$html$Html$div,
+			{ctor: '[]'},
+			{ctor: '[]'});
+	}
+};
+var _user$project$View$content = function (currentContent) {
+	var _p2 = currentContent.contentType;
+	if (_p2.ctor === 'Page') {
+		return _user$project$View$staticContent(currentContent.view);
+	} else {
+		return _user$project$View$markdownContent(currentContent.markdown);
+	}
+};
 var _user$project$View$body = function (model) {
 	return A2(
 		_elm_lang$html$Html$div,
@@ -13803,39 +14069,10 @@ var _user$project$View$body = function (model) {
 		},
 		{
 			ctor: '::',
-			_0: _user$project$View$content(model.currentContent.markdown),
+			_0: _user$project$View$content(model.currentContent),
 			_1: {ctor: '[]'}
 		});
 };
-var _user$project$View$navigationOnClick = function (msg) {
-	return A3(
-		_elm_lang$html$Html_Events$onWithOptions,
-		'click',
-		{stopPropagation: false, preventDefault: true},
-		_elm_lang$core$Json_Decode$succeed(msg));
-};
-var _user$project$View$navigationLink = F2(
-	function (name, _p1) {
-		var _p2 = _p1;
-		var _p3 = _p2.slug;
-		return A2(
-			_elm_lang$html$Html$a,
-			{
-				ctor: '::',
-				_0: _elm_lang$html$Html_Attributes$href(_p3),
-				_1: {
-					ctor: '::',
-					_0: _user$project$View$navigationOnClick(
-						_user$project$Types$LinkClicked(_p3)),
-					_1: {ctor: '[]'}
-				}
-			},
-			{
-				ctor: '::',
-				_0: _elm_lang$html$Html$text(name),
-				_1: {ctor: '[]'}
-			});
-	});
 var _user$project$View$navigation = function (model) {
 	return A2(
 		_elm_lang$html$Html$nav,
@@ -13847,7 +14084,7 @@ var _user$project$View$navigation = function (model) {
 				{ctor: '[]'},
 				{
 					ctor: '::',
-					_0: A2(_user$project$View$navigationLink, 'Home', _user$project$Pages$home),
+					_0: A2(_user$project$ViewHelper$pageLink, 'Home', _user$project$Pages$home),
 					_1: {ctor: '[]'}
 				}),
 			_1: {
@@ -13857,10 +14094,21 @@ var _user$project$View$navigation = function (model) {
 					{ctor: '[]'},
 					{
 						ctor: '::',
-						_0: A2(_user$project$View$navigationLink, 'About', _user$project$Pages$about),
+						_0: A2(_user$project$ViewHelper$pageLink, 'About', _user$project$Pages$about),
 						_1: {ctor: '[]'}
 					}),
-				_1: {ctor: '[]'}
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$li,
+						{ctor: '[]'},
+						{
+							ctor: '::',
+							_0: A2(_user$project$ViewHelper$pageLink, 'Blog', _user$project$Pages$blog),
+							_1: {ctor: '[]'}
+						}),
+					_1: {ctor: '[]'}
+				}
 			}
 		});
 };
@@ -13883,26 +14131,11 @@ var _user$project$View$render = function (model) {
 		});
 };
 
-var _user$project$FetchContent$directoryForContentType = function (contentType) {
-	var _p0 = contentType;
-	if (_p0.ctor === 'Page') {
-		return 'pages';
-	} else {
-		return 'posts';
-	}
-};
 var _user$project$FetchContent$getUrl = function (content) {
-	var loc = _user$project$FetchContent$directoryForContentType(content.contentType);
 	return A2(
 		_elm_lang$core$Basics_ops['++'],
-		'/content/',
-		A2(
-			_elm_lang$core$Basics_ops['++'],
-			loc,
-			A2(
-				_elm_lang$core$Basics_ops['++'],
-				'/',
-				A2(_elm_lang$core$Basics_ops['++'], content.name, '.md'))));
+		'/content/posts/',
+		A2(_elm_lang$core$Basics_ops['++'], content.name, '.md'));
 };
 var _user$project$FetchContent$fetch = function (content) {
 	return A2(
@@ -13915,14 +14148,23 @@ var _user$project$FetchContent$fetch = function (content) {
 var _user$project$App$subscriptions = function (model) {
 	return _elm_lang$core$Platform_Sub$none;
 };
-var _user$project$App$getPagesByPathname = function (pathname) {
+var _user$project$App$getContentByPathname = function (pathname) {
 	return _elm_lang$core$List$head(
 		A2(
 			_elm_lang$core$List$filter,
 			function (item) {
 				return _elm_lang$core$Native_Utils.eq(item.slug, pathname);
 			},
-			_user$project$Pages$pages));
+			_elm_lang$core$List$concat(
+				{
+					ctor: '::',
+					_0: _user$project$Pages$pages,
+					_1: {
+						ctor: '::',
+						_0: _user$project$Posts$posts,
+						_1: {ctor: '[]'}
+					}
+				})));
 };
 var _user$project$App$update = F2(
 	function (msg, model) {
@@ -13935,25 +14177,36 @@ var _user$project$App$update = F2(
 					_1: _elm_lang$navigation$Navigation$newUrl(_p0._0)
 				};
 			case 'UrlChange':
-				var _p2 = _p0._0;
-				var pageContent = _user$project$App$getPagesByPathname(_p2.pathname);
+				var pageContent = _user$project$App$getContentByPathname(_p0._0.pathname);
 				var _p1 = pageContent;
 				if (_p1.ctor === 'Nothing') {
 					return {
 						ctor: '_Tuple2',
-						_0: model,
-						_1: _user$project$FetchContent$fetch(_user$project$Pages$notFound404)
-					};
-				} else {
-					return {
-						ctor: '_Tuple2',
 						_0: _elm_lang$core$Native_Utils.update(
 							model,
-							{
-								history: {ctor: '::', _0: _p2, _1: model.history}
-							}),
-						_1: _user$project$FetchContent$fetch(_p1._0)
+							{currentContent: _user$project$Pages$notFound404}),
+						_1: _elm_lang$core$Platform_Cmd$none
 					};
+				} else {
+					var _p3 = _p1._0;
+					var _p2 = _p3.contentType;
+					if (_p2.ctor === 'Page') {
+						return {
+							ctor: '_Tuple2',
+							_0: _elm_lang$core$Native_Utils.update(
+								model,
+								{currentContent: _p3}),
+							_1: _elm_lang$core$Platform_Cmd$none
+						};
+					} else {
+						return {
+							ctor: '_Tuple2',
+							_0: _elm_lang$core$Native_Utils.update(
+								model,
+								{currentContent: _p3}),
+							_1: _user$project$FetchContent$fetch(_p3)
+						};
+					}
 				}
 			default:
 				if (_p0._0.ctor === 'Ok') {

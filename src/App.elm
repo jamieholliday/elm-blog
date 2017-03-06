@@ -2,6 +2,7 @@ module App exposing (..)
 
 import Navigation
 import Pages
+import Posts
 import Types exposing (Model, Msg(..), Content, ContentType(..))
 import View
 import FetchContent exposing (fetch)
@@ -24,11 +25,16 @@ init location =
 
 
 -- HELPERS
+-- getPagesByPathname : String -> Maybe Content
+-- getPagesByPathname pathname =
+--     Pages.pages
+--         |> List.filter (\item -> item.slug == pathname)
+--         |> List.head
 
 
-getPagesByPathname : String -> Maybe Content
-getPagesByPathname pathname =
-    Pages.pages
+getContentByPathname : String -> Maybe Content
+getContentByPathname pathname =
+    List.concat ([ Pages.pages, Posts.posts ])
         |> List.filter (\item -> item.slug == pathname)
         |> List.head
 
@@ -46,16 +52,25 @@ update msg model =
         UrlChange location ->
             let
                 pageContent =
-                    getPagesByPathname location.pathname
+                    getContentByPathname location.pathname
             in
                 case pageContent of
                     Nothing ->
-                        ( model, fetch (Pages.notFound404) )
+                        ( { model | currentContent = Pages.notFound404 }
+                        , Cmd.none
+                        )
 
                     Just content ->
-                        ( { model | history = location :: model.history }
-                        , fetch (content)
-                        )
+                        case content.contentType of
+                            Page ->
+                                ( { model | currentContent = content }
+                                , Cmd.none
+                                )
+
+                            Post ->
+                                ( { model | currentContent = content }
+                                , fetch (content)
+                                )
 
         NewContent (Ok content) ->
             let
@@ -76,6 +91,26 @@ update msg model =
 
 
 
+-- Nothing ->
+--     ( model, fetch (Pages.notFound404) )
+--         Just content ->
+--             ( { model | history = location :: model.history }
+--             , fetch (content)
+--             )
+-- NewContent (Ok content) ->
+--     let
+--         currentContent =
+--             model.currentContent
+--         newCurrent =
+--             { currentContent | markdown = Just content }
+--     in
+--         ( { model | currentContent = newCurrent }
+--         , Cmd.none
+--         )
+-- NewContent (Err errorMessage) ->
+--     ( { model | currentContent = Pages.notFoundContent }
+--     , Cmd.none
+--     )
 -- SUBSCRIPTIONS
 
 
